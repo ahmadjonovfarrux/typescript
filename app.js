@@ -35,17 +35,17 @@ function upDateUi(user) {
             localStorage.setItem("person", JSON.stringify(users));
             upDateUi(users);
         });
-        editItems.addEventListener("click", () => {
-            const edit = users.find((item) => {
-                return users.name == item.name && users.age == item.age;
-            });
-            if (edit) {
-                const newName = prompt("ism");
-                const newAge = prompt("yosh");
-                h4.textContent = newName;
-                h5.textContent = newAge;
-            }
-        });
+        // editItems.addEventListener("click", () => {
+        //   const edit = users.find((item) => {
+        //    return users.name == item.name && users.age == item.age; 
+        //   });
+        //   if (edit) {
+        //     const newName = prompt("ism");
+        //     const newAge = prompt("yosh");
+        //     h4.textContent = newName;
+        //     h5.textContent = newAge;
+        //   }
+        // });
         h4.textContent = `Name: ${user.name}`;
         h5.textContent = `Age: ${user.age.toString()}`;
         templateBox.appendChild(clone);
