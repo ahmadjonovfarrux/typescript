@@ -39,6 +39,12 @@ body {
   color: white;
 }
 
+h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: beige;
+}
+
 form {
   width: 500px;
   display: flex;
@@ -81,12 +87,22 @@ p label {
 }
 
 .ItemWrapper {
+  width: 500px;
   margin-top: 20px;
   display: flex;
   align-items: center;
-  gap: 320px;
+  /* gap: 320px; */
+  justify-content: space-between;
 }
 
-h4 {
-  font-size: 16px;
+h4,
+h5 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+button {
+  padding: 4px 6px;
+  border-radius: 4px;
+  background-color: beige;
 }

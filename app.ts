@@ -46,17 +46,15 @@ function upDateUi(user: User[]) {
       upDateUi(users);
     });
 
-    // editItems.addEventListener("click", () => {
-    //   const edit = users.find((item) => {
-    //    return users.name == item.name && users.age == item.age; 
-    //   });
-    //   if (edit) {
-    //     const newName = prompt("ism");
-    //     const newAge = prompt("yosh");
-    //     h4.textContent = newName;
-    //     h5.textContent = newAge;
-    //   }
-    // });
+    editItems.addEventListener("click", () => {
+      const name = form.elements.namedItem("name") as HTMLInputElement;
+      const age = form.elements.namedItem("age") as HTMLInputElement;
+
+      name.value = user.name;
+      age.value = user.age.toString();
+      users.splice(index, 1);
+      upDateUi(users);
+    });
 
     h4.textContent = `Name: ${user.name}`;
     h5.textContent = `Age: ${user.age.toString()}`;
