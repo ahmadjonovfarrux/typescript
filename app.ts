@@ -10,25 +10,9 @@ type User = {
 const users: User[] = localStorage.getItem("person")
   ? JSON.parse(localStorage.getItem("person") as string)
   : [];
-
+console.log(users);
 if (users.length > 0) {
   upDateUi(users);
-}
-
-function upDateUi(user: User[]) {
-  users.forEach((user) => {
-    const clone = template.content.cloneNode(true) as HTMLTemplateElement;
-
-    const h4 = clone.querySelector("h4") as HTMLHeadElement;
-    const h5 = clone.querySelector("h5") as HTMLHeadElement;
-    const editItem = document.getElementById("edit") as HTMLHeadElement;
-    const removeItem = document.getElementById("remove") as HTMLHeadElement;
-
-    h4.textContent = `Name: ${user.name}`;
-    h5.textContent = `Age: ${user.age.toString()}`;
-
-    templateBox.appendChild(clone);
-  });
 }
 
 form.addEventListener("submit", (e) => {
@@ -36,15 +20,47 @@ form.addEventListener("submit", (e) => {
 
   const name = form.elements.namedItem("name") as HTMLInputElement;
   const age = form.elements.namedItem("age") as HTMLInputElement;
-  //   adding to localStorage
-  localStorage.setItem("person", JSON.stringify(users));
   if (!name.value.trim() && !age.value.trim()) {
     return " Enter something";
   }
-
-  const clone = template.content.cloneNode(true);
-  
   users.push({ name: name.value, age: +age.value });
   upDateUi(users);
+  // adding localStorage
+  localStorage.setItem("person", JSON.stringify(users));
   form.reset();
 });
+
+function upDateUi(user: User[]) {
+  templateBox.innerHTML = "";
+  users.forEach((user, index) => {
+    const clone = template.content.cloneNode(true) as HTMLTemplateElement;
+
+    const h4 = clone.querySelector("h4") as HTMLHeadElement;
+    const h5 = clone.querySelector("h5") as HTMLHeadElement;
+    const editItems = clone.querySelector("#edit") as HTMLHeadElement;
+    const removeItem = clone.querySelector("#remove") as HTMLHeadElement;
+
+    removeItem.addEventListener("click", () => {
+      users.splice(index, 1);
+      localStorage.setItem("person", JSON.stringify(users));
+      upDateUi(users);
+    });
+
+    editItems.addEventListener("click", () => {
+      const edit = users.find((item) => {
+       return users.name == item.name && users.age == item.age; 
+      });
+      if (edit) {
+        const newName = prompt("ism");
+        const newAge = prompt("yosh");
+        h4.textContent = newName;
+        h5.textContent = newAge;
+      }
+    });
+
+    h4.textContent = `Name: ${user.name}`;
+    h5.textContent = `Age: ${user.age.toString()}`;
+
+    templateBox.appendChild(clone);
+  });
+}
